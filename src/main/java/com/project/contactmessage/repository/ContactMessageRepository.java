@@ -32,7 +32,7 @@ public interface ContactMessageRepository extends JpaRepository<ContactMessage, 
 
     	/*
 		Yukardaki Query icin ornek senaryo :
-		Db deki ContactMessage  ssati 09:30
+		Db deki ContactMessage  saati 09:30
 		Sorguda gelen parametreler --> 09:15 / 17:15
 		Ilk AND --> TRUE
 		ikinci AND --> False OR True

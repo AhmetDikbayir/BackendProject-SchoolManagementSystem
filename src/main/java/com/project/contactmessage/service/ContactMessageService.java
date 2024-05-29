@@ -47,8 +47,8 @@ public class ContactMessageService {
         if(Objects.equals(type, "desc")){
             pageable = PageRequest.of(page,size, Sort.by(sort).descending());
         }
-
-        return contactMessageRepository.findAll(pageable).map(contactMessageMapper::contactMessageToResponse);
+        return contactMessageRepository.findAll(pageable).
+                map(contactMessageMapper::contactMessageToResponse);
     }
 
     public Page<ContactMessageResponse> searchByEmail(String email, int page, int size, String sort, String type) {
