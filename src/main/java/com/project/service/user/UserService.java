@@ -15,6 +15,7 @@ import com.project.payload.response.user.UserResponse;
 import com.project.repository.user.UserRepository;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -88,7 +89,7 @@ public class UserService {
         return ResponseMessage.<String>builder()
                 .object(null)
                 .message(SuccessMessages.USER_DELETE)
-                .httpStatus(HttpStatus.OK)
+                .httpStatus(HttpStatus.NO_CONTENT)
                 .build();
     }
 
@@ -104,7 +105,7 @@ public class UserService {
     }
 
     public UserResponse updateAdminOrDeanOrViceDean(UpdateUserRequest updateUserRequest, Long id) {
-        //!!! id'li ogrenci var mi kontrolu :
+        //!!! id'li user var mi kontrolu :
         UserResponse foundUser = getUserById(id);
         // !!! email exist mi ? ve eger email degisecek ise DB de mevcutta olan emaillerden olmamasi gerekiyor
         boolean isEmailExist = userRepository.existsByEmail(updateUserRequest.getEmail());

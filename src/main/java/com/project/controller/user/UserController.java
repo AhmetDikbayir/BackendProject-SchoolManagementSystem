@@ -22,7 +22,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/save/{userRole}") // http://localhost:8080/user/save/Admin  + JSON + POST
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<ResponseMessage<UserResponse>> saveUser(@RequestBody @Valid UserRequest userRequest,
                                                                   @PathVariable String userRole){
         return ResponseEntity.ok(userService.saveUser(userRequest, userRole));
@@ -56,7 +56,7 @@ public class UserController {
     }
 
     // Not: updateAdminOrDeanOrViceDean() ********************************************
-    @PutMapping("/update/{id}")
+    @PatchMapping("/update/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<UserResponse> updateAdminOrDeanOrViceDean(@RequestBody UpdateUserRequest updateUserRequest, @PathVariable("id") Long id){
             return ResponseEntity.ok(userService.updateAdminOrDeanOrViceDean(updateUserRequest, id));
