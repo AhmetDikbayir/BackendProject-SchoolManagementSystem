@@ -1,8 +1,6 @@
 package com.project.payload.request.user;
 
-
-import com.project.payload.request.abstracts.BaseUserRequest;
-import lombok.AllArgsConstructor;
+import com.project.payload.request.abstracts.AbstractUserRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-public class UpdateUserRequest extends BaseUserRequest {
+public class UserRequestWithoutPassword extends AbstractUserRequest {
 
 
 }

@@ -2,6 +2,9 @@ package com.project.payload.messages;
 
 public class ErrorMessages {
 
+    public static final String NOT_FOUND_USER_MESSAGE = "Error: User not found";
+    public static final String NOT_FOUND_ADVISOR_MESSAGE = "Error: Advisor not found";
+
     private ErrorMessages() {
     }
 
