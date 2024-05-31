@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 @Repository
@@ -38,4 +39,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT u FROM User u WHERE u.isAdvisor = ?1")
     List<User> findAllByAdvisor(Boolean aTrue);
+
+    Arrays getUserByNameContaining(String name);
+
+    @Query("SELECT u FROM User u WHERE u.id=?1")
+    User findByIdTeacher(Long id);
+
+    @Query(value = "SELECT ( COUNT (u)>0 ) FROM User u WHERE u.userRole.roleType = ?1")
+    boolean findStudent(RoleType roleType);
+
+    @Query(value = "SELECT MAX (u.studentNumber) FROM User u")
+    int getMaxStudentNumber();
 }

@@ -17,4 +17,13 @@ public class ErrorMessages {
 
     public static final String ROLE_NOT_FOUND = "There is no role like that , check the database" ;
     public static final String USER_NOT_FOUND = "Error: User with id : %s not found" ;
+
+    public static final String TEACHER_ALREADY_ADVISOR="Error: Teacher is already advisor";
+
+    public static final String NOT_FOUND_USER_WITH_ROLE_MESSAGE = "Error: The role information of the user with id %s is not role: %s" ;
+
+    public static final String ALREADY_EXIST_ADVISOR_MESSAGE = "Error: Advisor Teacher with id %s is already exist";
+    public static final String EDUCATION_TERM_NOT_FOUND_MESSAGE = "Error: Education Term with id %s not found";
+
+
 }

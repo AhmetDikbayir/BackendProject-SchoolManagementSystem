@@ -2,6 +2,7 @@ package com.project.service.user;
 
 import com.project.entity.concretes.user.User;
 import com.project.entity.enums.RoleType;
+import com.project.exception.BadRequestException;
 import com.project.exception.ConflictException;
 import com.project.exception.ResourceNotFoundException;
 import com.project.payload.mappers.UserMapper;
@@ -18,16 +19,16 @@ import com.project.service.helper.PageableHelper;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,13 +45,13 @@ public class UserService {
     public ResponseMessage<UserResponse> saveUser(UserRequest userRequest, String userRole) {
 
         //!!! username - ssn- phoneNumber unique mi kontrolu ??
-        uniquePropertyValidator.checkDuplicate(userRequest.getUsername(),userRequest.getSsn(),
-                userRequest.getPhoneNumber(),userRequest.getEmail());
+        uniquePropertyValidator.checkDuplicate(userRequest.getUsername(), userRequest.getSsn(),
+                userRequest.getPhoneNumber(), userRequest.getEmail());
         //!!! DTO --> POJO
         User user = userMapper.mapUserRequestToUser(userRequest);
         // !!! Rol bilgisi setleniyor
-        if(userRole.equalsIgnoreCase(RoleType.ADMIN.name())){
-            if(Objects.equals(userRequest.getUsername(),"Admin")){ // Mirac
+        if (userRole.equalsIgnoreCase(RoleType.ADMIN.name())) {
+            if (Objects.equals(userRequest.getUsername(), "Admin")) {
                 user.setBuilt_in(true);
             }
             user.setUserRole(userRoleService.getUserRole(RoleType.ADMIN));
@@ -72,102 +73,87 @@ public class UserService {
                 .build();
     }
 
-    public Page<UserResponse> getAllAdminOrDeanOrViceDeanByPage(int page, int size, String sort, String type, String userRole) {
+    public Page<UserResponse> getUsersByPage(int page, int size, String sort, String type,
+                                             String userRole) {
+        Pageable pageable = pageableHelper.getPageableWithProperties(page, size, sort, type);
+        return userRepository.findByUserByRole(userRole, pageable)
+                .map(userMapper::mapUserToUserResponse);
+    }
 
-        Pageable pageable = PageRequest.of(page,size, Sort.by(sort).ascending());
-        if(Objects.equals(type, "desc")){
-            pageable = PageRequest.of(page,size, Sort.by(sort).descending());
+    public ResponseMessage<BaseUserResponse> getUserById(Long userId) {
+        BaseUserResponse baseUserResponse;
+        User user = userRepository.findById(userId).orElseThrow((() ->
+                new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_USER_MESSAGE, userId))));
+
+        if (user.getUserRole().getRoleType() == RoleType.STUDENT) {
+            baseUserResponse = userMapper.mapUserToStudentResponse(user);
+        } else if (user.getUserRole().getRoleType() == RoleType.TEACHER) {
+            baseUserResponse = userMapper.mapUserToTeacherResponse(user);
+        } else {
+            baseUserResponse = userMapper.mapUserToUserResponse(user);
         }
-        return userRepository.findByUserRoleEquals(userRole, pageable).
-                map(userMapper::mapUserToUserResponse);
-    }
 
-    public UserResponse getUserById(Long id) {
-        return userRepository.findById(id).
-                map(userMapper::mapUserToUserResponse).
-                orElseThrow(()-> new ResourceNotFoundException(ErrorMessages.USER_NOT_FOUND));
-    }
-
-    public ResponseMessage<String> deleteUser(Long id) {
-        getUserById(id);
-        userRepository.deleteById(id);
-        return ResponseMessage.<String>builder()
-                .object(null)
-                .message(SuccessMessages.USER_DELETE)
-                .httpStatus(HttpStatus.NO_CONTENT)
+        return ResponseMessage.<BaseUserResponse>builder()
+                .message(SuccessMessages.USER_FOUND)
+                .httpStatus(HttpStatus.OK)
+                .object(baseUserResponse)
                 .build();
     }
 
-    public Page<UserResponse> getByNameByPage(int page, int size, String sort, String type, String username) {
-
-        Pageable pageable = PageRequest.of(page,size, Sort.by(sort).ascending());
-        if(Objects.equals(type, "desc")){
-            pageable = PageRequest.of(page,size, Sort.by(sort).descending());
+    public String deleteUserById(Long id, HttpServletRequest request) {
+        // silinecek user var mi kontrolu
+        User user = methodHelper.isUserExist(id); // silinmesi istenen user
+        // metodu tetikleyen user role bilgisi aliniyor
+        String userName = (String) request.getAttribute("username");
+        User user2 = userRepository.findByUsername(userName); // silme islemini talep eden user
+        // builtIn kontrolu
+        if (Boolean.TRUE.equals(user.getBuilt_in())) {
+            throw new ConflictException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
+            // MANAGER sadece Teacher, student, Assistant_Manager silebilir
+        } else if (user2.getUserRole().getRoleType() == RoleType.MANAGER) {
+            if (!((user.getUserRole().getRoleType() == RoleType.TEACHER) ||
+                    (user.getUserRole().getRoleType() == RoleType.STUDENT) ||
+                    (user.getUserRole().getRoleType() == RoleType.ASSISTANT_MANAGER))) {
+                throw new BadRequestException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
+            }
+            // Mudur Yardimcisi sadece Teacher veya Student silebilir
+        } else if (user2.getUserRole().getRoleType() == RoleType.ASSISTANT_MANAGER) {
+            if (!((user.getUserRole().getRoleType() == RoleType.TEACHER) ||
+                    (user.getUserRole().getRoleType() == RoleType.STUDENT))) {
+                throw new BadRequestException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
+            }
         }
-        return userRepository.findByUsername(username, pageable).
-                map(userMapper::mapUserToUserResponse);
-
+        userRepository.deleteById(id);
+        return SuccessMessages.USER_DELETE;
     }
-/*
-    public UserResponse updateAdminOrDeanOrViceDean(UpdateUserRequest updateUserRequest, Long id) {
-        //!!! id'li user var mi kontrolu :
-        UserResponse foundUser = getUserById(id);
-        // !!! email exist mi ? ve eger email degisecek ise DB de mevcutta olan emaillerden olmamasi gerekiyor
-        boolean isEmailExist = userRepository.existsByEmail(updateUserRequest.getEmail());
-        boolean isUserNameExist = userRepository.existsByUsername(updateUserRequest.getUsername());
-        boolean isPhoneNumberExist = userRepository.existsByPhoneNumber(updateUserRequest.getPhoneNumber());
-        */
-        /*
-        POJO CLASS , DTO
-        1) kendi email : mrc , mrc --> TRUE && FALSE (UPDATE OLUR)
-        2) kendi email : mrc, ahmet ve DB'de zaten ahmet diye biri var --> TRUE && TRUE (EXCEPTION ATAR)
-        3) kendi email : mrc, mehmet ama DB'de mehmet diye biri yok --> FALSE &&  TRUE (UPDATE OLUR)
-        */
-/*
-        if(isEmailExist && !updateUserRequest.getEmail().equals(foundUser.getEmail())){
-            throw new ConflictException(ErrorMessages.ALREADY_REGISTER_MESSAGE_EMAIL);
-        }
 
-        if(isUserNameExist && !updateUserRequest.getUsername().equals(foundUser.getUsername())){
-            throw new ConflictException(ErrorMessages.ALREADY_REGISTER_MESSAGE_USERNAME);
-        }
+    public ResponseMessage<BaseUserResponse> updateUser(UserRequest userRequest, Long userId) {
 
-        if(isPhoneNumberExist && !updateUserRequest.getPhoneNumber().equals(foundUser.getPhoneNumber())){
-            throw new ConflictException(ErrorMessages.ALREADY_REGISTER_MESSAGE_PHONE);
-        }
+        User user = methodHelper.isUserExist(userId);
+        // !!! built_in kontrolu
+        methodHelper.checkBuiltIn(user);
+        //!!! update isleminde gelen request de unique olmasi gereken eski datalar hic degismedi ise
+        // dublicate kontrolu yapmaya gerek yok :
+        uniquePropertyValidator.checkUniqueProperties(user, userRequest);
+        //!!! DTO --> POJO
+        User updatedUser = userMapper.mapUserRequestToUpdatedUser(userRequest, userId);
+        // !!! Password Encode
+        updatedUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        updatedUser.setUserRole(user.getUserRole());
+        User savedUser = userRepository.save(updatedUser);
 
-        User updatedUser = userMapper.mapUpdatedUserRequestToUser(updateUserRequest);
-        userRepository.save(updatedUser);
-        return userMapper.mapUserToUserResponse(updatedUser);
+        return ResponseMessage.<BaseUserResponse>builder()
+                .message(SuccessMessages.USER_UPDATE_MESSAGE)
+                .httpStatus(HttpStatus.OK)
+                .object(userMapper.mapUserToUserResponse(savedUser))
+                .build();
     }
-*/
-public ResponseMessage<BaseUserResponse> updateUser(UserRequest userRequest, Long userId) {
-
-    User user = methodHelper.isUserExist(userId);
-    // !!! bulit_in kontrolu
-    methodHelper.checkBuiltIn(user);
-    //!!! update isleminde gelen request de unique olmasi gereken eski datalar hic degismedi ise
-    // dublicate kontrolu yapmaya gerek yok :
-    uniquePropertyValidator.checkUniqueProperties(user, userRequest);
-    //!!! DTO --> POJO
-    User updatedUser = userMapper.mapUserRequestToUpdatedUser(userRequest, userId);
-    // !!! Password Encode
-    updatedUser.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-    updatedUser.setUserRole(user.getUserRole());
-    User savedUser = userRepository.save(updatedUser);
-
-    return ResponseMessage.<BaseUserResponse>builder()
-            .message(SuccessMessages.USER_UPDATE_MESSAGE)
-            .httpStatus(HttpStatus.OK)
-            .object(userMapper.mapUserToUserResponse(savedUser))
-            .build();
-}
 
     // Not: updateUserForUser() **********************************************************
     public ResponseEntity<String> updateUserForUsers(UserRequestWithoutPassword userRequest,
                                                      HttpServletRequest request) {
         String userName = (String) request.getAttribute("username");
-        User user = userRepository.findByUsernameEquals(userName);
+        User user = userRepository.findByUsername(userName);
 
         // !!! bulit_in kontrolu
         methodHelper.checkBuiltIn(user);
@@ -189,10 +175,23 @@ public ResponseMessage<BaseUserResponse> updateUser(UserRequest userRequest, Lon
 
         String message = SuccessMessages.USER_UPDATE;
 
-        return ResponseEntity.ok(message) ;
+        return ResponseEntity.ok(message);
     }
 
-    public long countAllAdmins(){
-        return userRepository.countAdmin(RoleType.ADMIN);
+
+    // Not : getByName() ***************************************************************
+    public List<UserResponse> getUserByName(String name) {
+
+        return userRepository.getUserByNameContaining(name)
+                .stream()
+                .map(userMapper::mapUserToUserResponse)
+                .collect(Collectors.toList());
     }
+
+    public long countAllAdmins() {
+
+        return userRepository.countAdmin(RoleType.ADMIN);
+
+    }
+
 }

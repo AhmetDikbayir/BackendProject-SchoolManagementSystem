@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Entity;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -30,10 +29,28 @@ public class TeacherController {
     }
 
     // Not: ODEVVV updateTeacherById() ***************************************************
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    @PutMapping("/update/{userId}")  // http://localhost:8080/user/update/1
+    public ResponseMessage<TeacherResponse>updateTeacherForManagers(@RequestBody @Valid TeacherRequest teacherRequest,
+                                                                    @PathVariable Long userId){
+        return teacherService.updateTeacherForManagers(teacherRequest,userId);
+    }
 
     // Not: ODEVV SaveAdvisorTeacherByTeacherId() ****************************************
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    @PatchMapping("/saveAdvisorTeacher/{teacherId}") // http://localhost:8080/teacher/saveAdvisorTeacher/1
+    public ResponseMessage<UserResponse> saveAdvisorTeacher (@PathVariable Long teacherId){
+        return teacherService.saveAdvisorTeacher(teacherId);
+    }
 
     // Not : ODEVV  deleteAdvisorTeacherById() *******************************************
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    //aşağıda teacher id yazmak daha iyiydi herşeyin idsi olabilir
+    @DeleteMapping("/deleteAdvisorTeacherById/{id}")// http://localhost:8080/teacher/deleteAdvisorTeacherById/1
+    public ResponseMessage<UserResponse> deleteAdvisorTeacherById(@PathVariable Long id){
+        return teacherService.deleteAdvisorTeacherById(id);
+    }
+
 
     // Not: GetAllStudentByAdvisorUserName() **********************************************
     // !!! Bir rehber ogretmenin kendi ogrencilerin tamamini getiren metod
@@ -44,13 +61,13 @@ public class TeacherController {
         return teacherService.getAllStudentByAdvisorUsername(userName);
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'ASSISSTANT_MANAGER')")
-    @GetMapping("/getAllAdvisorTeacher")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    @GetMapping("/getAllAdvisorTeacher") // http://localhost:8080/teacher/getAllAdvisorTeacher
     public List<UserResponse> getAllAdvisorTeacher(){
         return teacherService.getAllAdvisorTeacher();
     }
 
-    //TODO : LESSON PROGRAM ekleme
+    // TODO: LESSOn PROGRAM ekleme
 
 
 }
