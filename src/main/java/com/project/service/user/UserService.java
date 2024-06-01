@@ -45,13 +45,13 @@ public class UserService {
     public ResponseMessage<UserResponse> saveUser(UserRequest userRequest, String userRole) {
 
         //!!! username - ssn- phoneNumber unique mi kontrolu ??
-        uniquePropertyValidator.checkDuplicate(userRequest.getUsername(), userRequest.getSsn(),
-                userRequest.getPhoneNumber(), userRequest.getEmail());
+        uniquePropertyValidator.checkDuplicate(userRequest.getUsername(),userRequest.getSsn(),
+                userRequest.getPhoneNumber(),userRequest.getEmail());
         //!!! DTO --> POJO
         User user = userMapper.mapUserRequestToUser(userRequest);
         // !!! Rol bilgisi setleniyor
-        if (userRole.equalsIgnoreCase(RoleType.ADMIN.name())) {
-            if (Objects.equals(userRequest.getUsername(), "Admin")) {
+        if(userRole.equalsIgnoreCase(RoleType.ADMIN.name())){
+            if(Objects.equals(userRequest.getUsername(),"Admin")){
                 user.setBuilt_in(true);
             }
             user.setUserRole(userRoleService.getUserRole(RoleType.ADMIN));
@@ -70,14 +70,14 @@ public class UserService {
         return ResponseMessage.<UserResponse>builder()
                 .message(SuccessMessages.USER_CREATE)
                 .object(userMapper.mapUserToUserResponse(savedUser))
-                .build();
+                .build() ;
     }
 
     public Page<UserResponse> getUsersByPage(int page, int size, String sort, String type,
                                              String userRole) {
         Pageable pageable = pageableHelper.getPageableWithProperties(page, size, sort, type);
         return userRepository.findByUserByRole(userRole, pageable)
-                .map(userMapper::mapUserToUserResponse);
+                .map(userMapper::mapUserToUserResponse) ;
     }
 
     public ResponseMessage<BaseUserResponse> getUserById(Long userId) {
@@ -97,7 +97,7 @@ public class UserService {
                 .message(SuccessMessages.USER_FOUND)
                 .httpStatus(HttpStatus.OK)
                 .object(baseUserResponse)
-                .build();
+                .build() ;
     }
 
     public String deleteUserById(Long id, HttpServletRequest request) {
@@ -105,15 +105,15 @@ public class UserService {
         User user = methodHelper.isUserExist(id); // silinmesi istenen user
         // metodu tetikleyen user role bilgisi aliniyor
         String userName = (String) request.getAttribute("username");
-        User user2 = userRepository.findByUsername(userName); // silme islemini talep eden user
+        User user2 = userRepository.findByUsername(userName) ; // silme islemini talep eden user
         // builtIn kontrolu
         if (Boolean.TRUE.equals(user.getBuilt_in())) {
             throw new ConflictException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
             // MANAGER sadece Teacher, student, Assistant_Manager silebilir
         } else if (user2.getUserRole().getRoleType() == RoleType.MANAGER) {
-            if (!((user.getUserRole().getRoleType() == RoleType.TEACHER) ||
+            if (!(  (user.getUserRole().getRoleType() == RoleType.TEACHER) ||
                     (user.getUserRole().getRoleType() == RoleType.STUDENT) ||
-                    (user.getUserRole().getRoleType() == RoleType.ASSISTANT_MANAGER))) {
+                    (user.getUserRole().getRoleType() == RoleType.ASSISTANT_MANAGER) )) {
                 throw new BadRequestException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
             }
             // Mudur Yardimcisi sadece Teacher veya Student silebilir
@@ -124,13 +124,13 @@ public class UserService {
             }
         }
         userRepository.deleteById(id);
-        return SuccessMessages.USER_DELETE;
+        return SuccessMessages.USER_DELETE ;
     }
 
     public ResponseMessage<BaseUserResponse> updateUser(UserRequest userRequest, Long userId) {
 
-        User user = methodHelper.isUserExist(userId);
-        // !!! built_in kontrolu
+        User user = methodHelper.isUserExist(userId) ;
+        // !!! bulit_in kontrolu
         methodHelper.checkBuiltIn(user);
         //!!! update isleminde gelen request de unique olmasi gereken eski datalar hic degismedi ise
         // dublicate kontrolu yapmaya gerek yok :
@@ -146,7 +146,7 @@ public class UserService {
                 .message(SuccessMessages.USER_UPDATE_MESSAGE)
                 .httpStatus(HttpStatus.OK)
                 .object(userMapper.mapUserToUserResponse(savedUser))
-                .build();
+                .build() ;
     }
 
     // Not: updateUserForUser() **********************************************************
@@ -156,7 +156,7 @@ public class UserService {
         User user = userRepository.findByUsername(userName);
 
         // !!! bulit_in kontrolu
-        methodHelper.checkBuiltIn(user);
+        methodHelper.checkBuiltIn(user) ;
 
         // !!! unique kontrolu
         uniquePropertyValidator.checkUniqueProperties(user, userRequest);
@@ -175,23 +175,21 @@ public class UserService {
 
         String message = SuccessMessages.USER_UPDATE;
 
-        return ResponseEntity.ok(message);
+        return ResponseEntity.ok(message) ;
     }
 
 
     // Not : getByName() ***************************************************************
     public List<UserResponse> getUserByName(String name) {
 
-        return userRepository.getUserByNameContaining(name)
+        return userRepository.getUserByNameContaining(name)//
                 .stream()
                 .map(userMapper::mapUserToUserResponse)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()) ;
     }
 
-    public long countAllAdmins() {
-
+    public long countAllAdmins(){
         return userRepository.countAdmin(RoleType.ADMIN);
-
     }
 
 }
