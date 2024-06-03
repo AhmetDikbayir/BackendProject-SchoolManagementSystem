@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class LessonService {
@@ -77,5 +79,8 @@ public class LessonService {
 
     public Lesson isLessonExistById(Long id){
         return lessonRepository.findById(id).orElseThrow(()->new ResourceNotFoundException(String.format(ErrorMessages.NOT_FOUND_LESSON_MESSAGE)));
+    }
+
+    public Set<Lesson> getLessonByLessonIdSet(Set<Long> lessonIdList) {
     }
 }

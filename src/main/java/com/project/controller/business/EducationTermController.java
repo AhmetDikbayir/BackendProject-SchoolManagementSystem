@@ -1,11 +1,16 @@
 package com.project.controller.business;
+import com.project.payload.messages.SuccessMessages;
+import com.project.payload.request.business.EducationTermRequest;
 import com.project.payload.response.business.EducationTermResponse;
+import com.project.payload.response.business.ResponseMessage;
 import com.project.service.business.EducationTermService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,7 +20,13 @@ public class EducationTermController {
 
     private final EducationTermService educationTermService;
 
-    // Not: ODEVV SAVE ********************************************
+    // Not: ODEVV save() *******************************************************************************
+    @PostMapping("/save")// http://localhost:8080/educationTerms/save + JSON + POST
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER')")
+    public ResponseMessage<EducationTermResponse> saveEducationTerm(@RequestBody @Valid
+                                                                    EducationTermRequest educationTermRequest){
+        return educationTermService.saveEducationTerm(educationTermRequest);
+    }
 
     @GetMapping("/{id}") //http://localhost:8080/educationTerms/1 + GET
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
@@ -40,6 +51,21 @@ public class EducationTermController {
             @RequestParam(value = "type", defaultValue = "desc") String type
     ){
         return educationTermService.getAllEducationTermsByPage(page,size,sort,type);
+    }
+
+    // Not:ODEVVV deleteById ********************************
+    @DeleteMapping("/deleteById/{termId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
+    public ResponseEntity<String> deleteById(@PathVariable Long termId){
+        educationTermService.deleteById(termId);
+        return ResponseEntity.ok(SuccessMessages.EDUCATION_TERM_DELETE);
+    }
+
+    //Not: ODEVVV UpdateById *********************************
+    @PatchMapping("/updateById/{termId}")
+    public ResponseEntity<EducationTermResponse> updateById(@PathVariable Long termId,
+                                             @RequestBody @Valid EducationTermRequest educationTermRequest){
+        return ResponseEntity.ok(educationTermService.updateById(termId, educationTermRequest));
     }
 
 

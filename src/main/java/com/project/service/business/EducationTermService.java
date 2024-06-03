@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -110,5 +111,30 @@ public class EducationTermService {
 
         return educationTermRepository.findAll(pageable).map(educationTermMapper::mapEducationTermToEducationTermResponse);
 
+    }
+
+    public void deleteById(Long termId) {
+        isEducationTermExist(termId);
+        //!!! SORU : EducationTerm silinince LessonProgramlar ne olacak, buraya onuda sileecek
+        // kodlar eklememiz gerekecek mi?? Hayir, EducationTerm entityde Cascade kullanildigi icin
+        // gerek yok..
+        educationTermRepository.deleteById(termId);
+    }
+
+    public EducationTermResponse updateById(Long termId, EducationTermRequest educationTermRequest) {
+
+        isEducationTermExist(termId);
+
+        validateEducationTermDates(educationTermRequest);
+
+        EducationTerm educationTermUpdated =
+                educationTermRepository.save(
+                        educationTermMapper.mapEducationTermRequestToUpdatedEducationTerm(termId,educationTermRequest));
+
+        return educationTermMapper.mapEducationTermToEducationTermResponse(educationTermUpdated);
+    }
+
+    public EducationTerm findEducationTermById(Long educationTermId){
+        return isEducationTermExist(educationTermId);
     }
 }
