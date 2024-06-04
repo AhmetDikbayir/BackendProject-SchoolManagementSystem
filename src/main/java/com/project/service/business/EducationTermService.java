@@ -62,7 +62,7 @@ public class EducationTermService {
     // !!! yrd Metod - 2 ********************************************************************
     private void validateEducationTermDates(EducationTermRequest educationTermRequest){
 
-        validateEducationTermDatesForRequest(educationTermRequest); // Yrd Method - 2
+        validateEducationTermDatesForRequest(educationTermRequest); // Yrd Method - 1
 
         // !!! Bir yil icinde bir tane Guz donemi veya Yaz Donemi olmali kontrolu
         if(educationTermRepository.existsByTermAndYear( // JPQL
@@ -76,9 +76,9 @@ public class EducationTermService {
                 .anyMatch(educationTerm ->
                         (			educationTerm.getStartDate().equals(educationTermRequest.getStartDate()) //!!! 1. kontrol : baslama tarihleri ayni ise --> et1(10 kasim 2023) / YeniEt(10 kasim 2023)
                                 || (educationTerm.getStartDate().isBefore(educationTermRequest.getStartDate())//!!! 2. kontrol : baslama tarihi mevcuttun baslama ve bitis tarihi ortasinda ise -->
-                                && educationTerm.getEndDate().isAfter(educationTermRequest.getStartDate())) // Ornek : et1 ( baslama 10 kasim 20203 - bitme 20 kasim 20203)  - YeniEt ( baslama 15 kasim 2023 bitme 25 kasim 20203)
+                                && educationTerm.getEndDate().isAfter(educationTermRequest.getStartDate())) // Ornek : et1 ( baslama 10 kasim 2023 - bitme 20 kasim 2023)  - YeniEt ( baslama 15 kasim 2023 bitme 25 kasim 20203)
                                 || (educationTerm.getStartDate().isBefore(educationTermRequest.getEndDate()) //!!! 3. kontrol bitis tarihi mevcuttun baslama ve bitis tarihi ortasinda ise
-                                && educationTerm.getEndDate().isAfter(educationTermRequest.getEndDate()))// Ornek : et1 ( baslama 10 kasim 20203 - bitme 20 kasim 20203)  - YeniEt ( baslama 09 kasim 2023 bitme 15 kasim 20203)
+                                && educationTerm.getEndDate().isAfter(educationTermRequest.getEndDate()))// Ornek : et1 ( baslama 10 kasim 2023 - bitme 20 kasim 20203)  - YeniEt ( baslama 09 kasim 2023 bitme 15 kasim 20203)
                                 || (educationTerm.getStartDate().isAfter(educationTermRequest.getStartDate()) //!!!4.kontrol : yeni eklenecek eskiyi tamamen kapsiyorsa
                                 && educationTerm.getEndDate().isBefore(educationTermRequest.getEndDate()))//et1 ( baslama 10 kasim 20203 - bitme 20 kasim 20203)  - YeniEt ( baslama 09 kasim 2023 bitme 25 kasim 20203)
                         ))

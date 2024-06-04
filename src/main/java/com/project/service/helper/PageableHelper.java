@@ -21,4 +21,10 @@ public class PageableHelper {
         return pageable ;
     }
 
+    //bu metotda sıralamayı kullanıcı seçmiyor biz veriyoruz.
+    public Pageable getPageableWithProperties(int page, int size)
+    {
+        return PageRequest.of(page, size, Sort.by("id").descending());
+    }
+
 }

@@ -6,6 +6,7 @@ import com.project.payload.response.business.LessonProgramResponse;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.service.business.LessonProgramService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -51,17 +52,32 @@ public class LessonProgramController {
         return lessonProgramService.getAllUnassigned();
     }
 
-    //Not : getAllLessonProgramAssigned() ****************
+    //Not : ODEV  getAllLessonProgramAssigned() ****************
 
     @GetMapping("/getAllLessonProgramAssigned")
-    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
     public List<LessonProgramResponse> getAllLessonProgramAssigned(){
         return lessonProgramService.getAllLessonProgramAssigned();
     }
 
     //Not : Delete() *************************
 
-    //Not : getAllWithPage() **************
+    @DeleteMapping("/deleteLessonProgramById")
+    @PreAuthorize("AnyAuthority('ADMIN','MANAGER','ASSISSTANT_MANAGER')")
+    public ResponseMessage deleteLessonProgramById(@PathVariable Long lessonProgramId){
+        return lessonProgramService.deleteLessonProgramById(lessonProgramId);
+    }
+
+    // Not : ( ODEV ) getAllWithPage() *************************************************
+    @GetMapping("/getAllLessonProgramByPage") // http://localhost:8080/lessonPrograms/getAllLessonProgramByPage?page=0&size=1&sort=id&type=desc
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER','STUDENT')")
+    public Page<LessonProgramResponse> getAllLessonProgramByPage (
+            @RequestParam(value = "page") int page,
+            @RequestParam(value = "size") int size,
+            @RequestParam(value = "sort") String sort,
+            @RequestParam(value = "type") String type){
+        return lessonProgramService.getAllLessonProgramByPage(page,size,sort,type);
+    }
 
 
     //bir öğretmen kendine ait lessonProgramları getiriyor

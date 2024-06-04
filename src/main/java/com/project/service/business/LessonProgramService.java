@@ -12,8 +12,11 @@ import com.project.payload.response.business.LessonProgramResponse;
 import com.project.payload.response.business.LessonResponse;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.repository.business.LessonProgramRepository;
+import com.project.service.helper.PageableHelper;
 import com.project.service.validator.DateTimeValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,7 @@ public class LessonProgramService {
     private final EducationTermService educationTermService;
     private final DateTimeValidator dateTimeValidator;
     private final LessonProgramMapper lessonProgramMapper;
+    private final PageableHelper pageableHelper;
 
 
     public ResponseMessage<LessonProgramResponse> saveLessonProgram(LessonProgramRequest lessonProgramRequest) {
@@ -103,5 +107,20 @@ public class LessonProgramService {
                 .stream()
                 .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
                 .collect(Collectors.toList());
+    }
+
+    public ResponseMessage deleteLessonProgramById(Long lessonProgramId) {
+        isLessonProgramExist(lessonProgramId);
+        lessonProgramRepository.deleteById(lessonProgramId);
+        return ResponseMessage.builder()
+                .message(SuccessMessages.LESSON_PROGRAM_DELETE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    public Page<LessonProgramResponse> getAllLessonProgramByPage(int page,int size, String sort,String type){
+        Pageable pageable = pageableHelper.getPageableWithProperties(page,size,sort,type);
+        return lessonProgramRepository.findAll(pageable)
+                .map(lessonProgramMapper::mapLessonProgramtoLessonProgramResponse);
     }
 }
