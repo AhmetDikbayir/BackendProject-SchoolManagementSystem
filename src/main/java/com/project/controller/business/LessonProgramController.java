@@ -6,6 +6,7 @@ import com.project.payload.response.business.LessonProgramResponse;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.service.business.LessonProgramService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class LessonProgramController {
 
     @PostMapping("/save") // http://localhost:8080/lessonPrograms/save + POST + JSON
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
-    public ResponseMessage<LessonProgramResponse> saveLEssonProgram(@RequestBody @Valid
+    public ResponseMessage<LessonProgramResponse> saveLessonProgram(@RequestBody @Valid
                                                              LessonProgramRequest lessonProgramRequest){
         return lessonProgramService.saveLessonProgram(lessonProgramRequest);
     }
@@ -37,6 +38,12 @@ public class LessonProgramController {
 
     //Not : ODEV getById()  **********************
 
+    @GetMapping("/getById")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
+    public ResponseMessage<LessonProgramResponse>getById(@PathVariable Long lessonProgramId){
+        return lessonProgramService.getById(lessonProgramId);
+    }
+
     //herhangi bir kullanıcı ataması yapılmamıs butun dersprogramlarını getireceğiz
     @GetMapping("/getAllUnAssigned")
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER','STUDENT')")
@@ -45,6 +52,12 @@ public class LessonProgramController {
     }
 
     //Not : getAllLessonProgramAssigned() ****************
+
+    @GetMapping("/getAllLessonProgramAssigned")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
+    public List<LessonProgramResponse> getAllLessonProgramAssigned(){
+        return lessonProgramService.getAllLessonProgramAssigned();
+    }
 
     //Not : Delete() *************************
 

@@ -56,16 +56,17 @@ public class EducationTermController {
     // Not:ODEVVV deleteById ********************************
     @DeleteMapping("/deleteById/{termId}")
     @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
-    public ResponseEntity<String> deleteById(@PathVariable Long termId){
-        educationTermService.deleteById(termId);
+    public ResponseEntity<String> deleteById(@PathVariable("termId") Long educationTermId){
+        educationTermService.deleteById(educationTermId);
         return ResponseEntity.ok(SuccessMessages.EDUCATION_TERM_DELETE);
     }
 
     //Not: ODEVVV UpdateById *********************************
-    @PatchMapping("/updateById/{termId}")
-    public ResponseEntity<EducationTermResponse> updateById(@PathVariable Long termId,
+    @PutMapping("/updateById/{termId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER','TEACHER')")
+    public ResponseEntity<EducationTermResponse> updateById(@PathVariable Long educationTermId,
                                              @RequestBody @Valid EducationTermRequest educationTermRequest){
-        return ResponseEntity.ok(educationTermService.updateById(termId, educationTermRequest));
+        return ResponseEntity.ok(educationTermService.updateById(educationTermId, educationTermRequest));
     }
 
 

@@ -113,12 +113,12 @@ public class EducationTermService {
 
     }
 
-    public void deleteById(Long termId) {
-        isEducationTermExist(termId);
+    public void deleteById(Long educationTermId) {
+        isEducationTermExist(educationTermId);
         //!!! SORU : EducationTerm silinince LessonProgramlar ne olacak, buraya onuda sileecek
         // kodlar eklememiz gerekecek mi?? Hayir, EducationTerm entityde Cascade kullanildigi icin
         // gerek yok..
-        educationTermRepository.deleteById(termId);
+        educationTermRepository.deleteById(educationTermId);
     }
 
     public EducationTermResponse updateById(Long termId, EducationTermRequest educationTermRequest) {

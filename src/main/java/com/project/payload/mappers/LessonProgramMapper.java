@@ -5,10 +5,14 @@ import com.project.entity.concretes.business.Lesson;
 import com.project.entity.concretes.business.LessonProgram;
 import com.project.payload.request.business.LessonProgramRequest;
 import com.project.payload.response.business.LessonProgramResponse;
+import lombok.Data;
+import org.springframework.stereotype.Component;
 
 
 import java.util.Set;
 
+@Data
+@Component
 public class LessonProgramMapper {
 
     public LessonProgram mapLessonProgramRequestToLessonProgram(LessonProgramRequest lessonProgramRequest,

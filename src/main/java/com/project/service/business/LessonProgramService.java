@@ -15,6 +15,7 @@ import com.project.repository.business.LessonProgramRepository;
 import com.project.service.validator.DateTimeValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServlet;
@@ -79,5 +80,28 @@ public class LessonProgramService {
                 .stream()
                 .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
                 .collect(Collectors.toSet());
+    }
+
+    public LessonProgram isLessonProgramExist(Long lessonProgramId){
+
+        return lessonProgramRepository.findById(lessonProgramId).orElseThrow(()-> new ResourceNotFoundException(ErrorMessages.NOT_FOUND_LESSON_MESSAGE));
+
+    }
+
+    public ResponseMessage<LessonProgramResponse> getById(Long lessonProgramId) {
+        LessonProgram foundLessonProgram = isLessonProgramExist(lessonProgramId);
+        LessonProgramResponse lessonProgramResponse = lessonProgramMapper.mapLessonProgramToLessonProgramResponse(foundLessonProgram);
+        return ResponseMessage.<LessonProgramResponse>builder()
+                .object(lessonProgramResponse)
+                .httpStatus(HttpStatus.FOUND)
+                .build();
+    }
+
+    public List<LessonProgramResponse> getAllLessonProgramAssigned() {
+
+        return lessonProgramRepository.findByUsers_IdNotNull()
+                .stream()
+                .map(lessonProgramMapper::mapLessonProgramToLessonProgramResponse)
+                .collect(Collectors.toList());
     }
 }
