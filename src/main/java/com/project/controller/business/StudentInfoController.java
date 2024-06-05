@@ -31,10 +31,30 @@ public class StudentInfoController {
     }
 
     // Not : ( ODEV )  Delete() ************************************************************
+    @PreAuthorize("hasAnyAuthority('TEACHER')")
+    @DeleteMapping("/delete/{studentInfoId}") // http://localhost:8080/studentInfo/delete/1
+    public ResponseMessage deleteStudentInfoById(@PathVariable Long studentInfoId){
+        return studentInfoService.deleteStudentInfoById(studentInfoId);
+    }
 
     // Not: ( ODEV ) getAllWithPage ********************************************************
+    @PreAuthorize("hasAnyAuthority('ADMIN, MANAGER,ASSISTANT_MANAGER')")
+    @GetMapping("/getAllWithPage")   // http://localhost:8080/studentInfo/getAllWithPage
+    public ResponseEntity<Page<StudentInfoResponse>> getAllWithPage(
+            @RequestParam(value = "page") int page,
+            @RequestParam(value = "size") int size
+    ){
+        return new ResponseEntity<>(studentInfoService.getAllWithPage(page,size), HttpStatus.OK);
+    }
 
     // Not: ( ODEV ) Update() *************************************************************
+    @PreAuthorize("hasAnyAuthority('TEACHER')")
+    @PutMapping("/update/{studentInfoId}") // http://localhost:8080/studentInfo/update/1
+    public ResponseMessage<StudentInfoResponse> updateStudentInfoById(
+            @PathVariable Long studentInfoId,
+            @RequestBody @Valid StudentInfoRequest studentInfoRequest){
+        return studentInfoService.updateStudentInfoById(studentInfoId, studentInfoRequest);
+    }
 
     // !!! -> Bir ogretmen kendi ogrencilerinin bilgilerini almak isterse :
     @PreAuthorize("hasAnyAuthority('TEACHER')")

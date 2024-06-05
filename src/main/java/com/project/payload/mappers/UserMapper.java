@@ -85,6 +85,7 @@ public class UserMapper {
                 .build() ;
     }
 
+
     public User mapUserRequestToUpdatedUser(UserRequest userRequest, Long userId){
         return User.builder()
                 .id(userId)
@@ -138,25 +139,6 @@ public class UserMapper {
     }
 
     public User mapStudentRequestToUser(StudentRequest studentRequest){
-
-        return User.builder()
-                .fatherName(studentRequest.getFatherName())
-                .motherName(studentRequest.getMotherName())
-                .birthDay(studentRequest.getBirthDay())
-                .birthPlace(studentRequest.getBirthPlace())
-                .name(studentRequest.getName())
-                .surname(studentRequest.getSurname())
-                .password(studentRequest.getPassword())
-                .username(studentRequest.getUsername())
-                .ssn(studentRequest.getSsn())
-                .email(studentRequest.getEmail())
-                .phoneNumber(studentRequest.getPhoneNumber())
-                .gender(studentRequest.getGender())
-                .built_in(studentRequest.getBuiltIn())
-                .build();
-    }
-
-    public User mapStudentRequestWithoutPasswordToUser(StudentRequestWithoutPassword studentRequest){
 
         return User.builder()
                 .fatherName(studentRequest.getFatherName())

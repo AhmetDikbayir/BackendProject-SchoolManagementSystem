@@ -12,6 +12,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -38,5 +40,5 @@ public class MeetRequest {
     private LocalTime stopTime;
 
     @NotNull(message = "Please select students")
-    private Long[] studentIds; // TODO : Set ?
+    private Set<Long> studentIds; // TODO : Set ?
 }

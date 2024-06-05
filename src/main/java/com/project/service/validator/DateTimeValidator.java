@@ -19,4 +19,6 @@ public class DateTimeValidator {
             throw new BadRequestException(ErrorMessages.TIME_NOT_VALID_MESSAGE);
         }
     }
+
+    public void check
 }

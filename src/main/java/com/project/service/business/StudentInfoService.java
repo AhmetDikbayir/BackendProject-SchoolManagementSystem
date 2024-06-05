@@ -6,7 +6,9 @@ import com.project.entity.concretes.business.StudentInfo;
 import com.project.entity.concretes.user.User;
 import com.project.entity.enums.Note;
 import com.project.entity.enums.RoleType;
+import com.project.exception.ResourceNotFoundException;
 import com.project.payload.mappers.StudentInfoMapper;
+import com.project.payload.messages.ErrorMessages;
 import com.project.payload.messages.SuccessMessages;
 import com.project.payload.request.business.StudentInfoRequest;
 import com.project.payload.response.business.ResponseMessage;
@@ -121,6 +123,47 @@ public class StudentInfoService {
 
         return studentInfoRepository.findByStudentId_UsernameEquals(username, pageable)
                 .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse);
+
+    }
+
+    public ResponseMessage deleteStudentInfoById(Long studentInfoId) {
+        isStudentInfoExistById(studentInfoId);
+        studentInfoRepository.deleteById(studentInfoId);
+        return ResponseMessage.builder()
+                .message(SuccessMessages.STUDENT_INFO_DELETE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+
+    }
+
+    private StudentInfo isStudentInfoExistById(Long studentInfoId){
+        return studentInfoRepository.
+                findById(studentInfoId).
+                orElseThrow(()->new ResourceNotFoundException(
+                        String.format (ErrorMessages.STUDENT_INFO_NOT_FOUND, studentInfoId)));
+    }
+
+    public Page<StudentInfoResponse> getAllWithPage(int page, int size) {
+
+        Pageable pageable = pageableHelper.getPageableWithProperties(page,size);
+
+        return studentInfoRepository.findAll(pageable)
+                .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse);
+    }
+
+    public ResponseMessage<StudentInfoResponse> updateStudentInfoById(
+            Long studentInfoId,
+            StudentInfoRequest studentInfoRequest) {
+        isStudentInfoExistById(studentInfoId);
+        Double updatedExamAverage = calculateAverageExam(studentInfoRequest.getMidtermExam(), studentInfoRequest.getFinalExam());
+        Note updatedNote = checkLetterGrade(updatedExamAverage);
+        StudentInfo updatedStudentInfo = studentInfoMapper.mapStudentInfoRequestToStudentInfo(studentInfoRequest, updatedNote, updatedExamAverage);
+        studentInfoRepository.save(updatedStudentInfo);
+        return ResponseMessage.<StudentInfoResponse>builder()
+                .message(SuccessMessages.STUDENT_INFO_UPDATE)
+                .object(studentInfoMapper.mapStudentInfoToStudentInfoResponse(updatedStudentInfo))
+                .httpStatus(HttpStatus.OK)
+                .build();
 
     }
 }

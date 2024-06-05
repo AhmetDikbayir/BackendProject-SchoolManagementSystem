@@ -3,10 +3,13 @@ package com.project.payload.mappers;
 import com.project.entity.concretes.business.Meet;
 import com.project.payload.request.business.MeetRequest;
 import com.project.payload.response.business.MeetResponse;
+import com.project.service.helper.MethodHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MeetMapper {
+
 
     public Meet mapMeetRequestToMeet(MeetRequest meetRequest){
 

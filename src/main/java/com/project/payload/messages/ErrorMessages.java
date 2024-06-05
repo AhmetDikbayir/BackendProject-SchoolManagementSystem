@@ -2,8 +2,6 @@ package com.project.payload.messages;
 
 public class ErrorMessages {
 
-
-
     private ErrorMessages() {
     }
 
@@ -29,14 +27,16 @@ public class ErrorMessages {
     public static final String EDUCATION_TERM_NOT_FOUND_MESSAGE = "Error: Education Term with id %s not found" ;
     public static final String EDUCATION_TERM_CONFLICT_MESSAGE = "Error: There is a conflict regarding the dates of the education terms.";
 
+    public static final String LESSON_ALREADY_EXIST_WITH_LESSON_NAME= "Lesson with Lesson Name %s is already exist";
+    public static final String NOT_FOUND_LESSON_MESSAGE= "Error: Lesson with this field %s not found";
+    public static final String NOT_FOUND_LESSON_IN_LIST= "Error: Lesson not found in the list";
 
+    public static final String TIME_NOT_VALID_MESSAGE = "Error: incorrect time";
 
-    public static final String NOT_FOUND_LESSON_MESSAGE = "Error: Lesson with this field %s not found";
-    public static final String LESSON_ALREADY_EXIST_WITH_LESSON_NAME = "Lesson with Lesson NAme %s is already exist";
-    public static final String NOT_FOUND_LESSON_IN_LIST = "Error : Lesson not found in the list";
-
-    public static final String TIME_NOT_VALID_MESSAGE = "Error: Incorrect time";
+    public static final String NOT_FOUND_LESSON_PROGRAM_MESSAGE = "Error: Lesson program with this field %s not found";
 
     public static final String MEET_NOT_FOUND_MESSAGE = "Error: Meet with id %s not found";
+
+    public static final String STUDENT_INFO_NOT_FOUND = "Error: Student Info with this id %s not found";
 
 }
