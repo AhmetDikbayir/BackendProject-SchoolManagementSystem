@@ -6,11 +6,13 @@ import com.project.entity.concretes.business.StudentInfo;
 import com.project.entity.concretes.user.User;
 import com.project.entity.enums.Note;
 import com.project.entity.enums.RoleType;
+import com.project.exception.ConflictException;
 import com.project.exception.ResourceNotFoundException;
 import com.project.payload.mappers.StudentInfoMapper;
 import com.project.payload.messages.ErrorMessages;
 import com.project.payload.messages.SuccessMessages;
 import com.project.payload.request.business.StudentInfoRequest;
+import com.project.payload.request.business.UpdateStudentInfoRequest;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.payload.response.business.StudentInfoResponse;
 import com.project.repository.business.StudentInfoRepository;
@@ -126,44 +128,69 @@ public class StudentInfoService {
 
     }
 
-    public ResponseMessage deleteStudentInfoById(Long studentInfoId) {
-        isStudentInfoExistById(studentInfoId);
-        studentInfoRepository.deleteById(studentInfoId);
+    public ResponseMessage deleteStudentInfo(Long studentInfoId){
+        StudentInfo studentInfo = isStudentInfoExistById(studentInfoId);
+        // !!! Silmeden once Student ve Teacherdan baglarini koparmamiz gerekiyor mu ??
+        //	cevap : hayir, mappedBY ile studentInfo tarafini isaret ettigimiz icin,
+        //	header sadece studentInfo tablosunda olusacagi icin, sadece bu tarafda
+        //	silmek yeterli
+        studentInfoRepository.deleteById(studentInfo.getId());
+
         return ResponseMessage.builder()
                 .message(SuccessMessages.STUDENT_INFO_DELETE)
                 .httpStatus(HttpStatus.OK)
                 .build();
-
     }
 
-    private StudentInfo isStudentInfoExistById(Long studentInfoId){
-        return studentInfoRepository.
-                findById(studentInfoId).
-                orElseThrow(()->new ResourceNotFoundException(
-                        String.format (ErrorMessages.STUDENT_INFO_NOT_FOUND, studentInfoId)));
+    public StudentInfo isStudentInfoExistById(Long id){
+        boolean isExist = studentInfoRepository.existsByIdEquals(id); //Derived
+        if(!isExist){
+            throw new ResourceNotFoundException(String.format(ErrorMessages.STUDENT_INFO_NOT_FOUND,id));
+        } else {
+            return studentInfoRepository.findById(id).get();
+        }
     }
 
-    public Page<StudentInfoResponse> getAllWithPage(int page, int size) {
-
-        Pageable pageable = pageableHelper.getPageableWithProperties(page,size);
-
+    public Page<StudentInfoResponse> getAllStudentInfoByPage(int page, int size, String sort, String type){
+        Pageable pageable = pageableHelper.getPageableWithProperties(page, size, sort, type);
         return studentInfoRepository.findAll(pageable)
                 .map(studentInfoMapper::mapStudentInfoToStudentInfoResponse);
     }
 
-    public ResponseMessage<StudentInfoResponse> updateStudentInfoById(
-            Long studentInfoId,
-            StudentInfoRequest studentInfoRequest) {
-        isStudentInfoExistById(studentInfoId);
-        Double updatedExamAverage = calculateAverageExam(studentInfoRequest.getMidtermExam(), studentInfoRequest.getFinalExam());
-        Note updatedNote = checkLetterGrade(updatedExamAverage);
-        StudentInfo updatedStudentInfo = studentInfoMapper.mapStudentInfoRequestToStudentInfo(studentInfoRequest, updatedNote, updatedExamAverage);
-        studentInfoRepository.save(updatedStudentInfo);
+    public ResponseMessage<StudentInfoResponse>update(UpdateStudentInfoRequest studentInfoRequest,
+                                                      Long studentInfoId){
+        Lesson lesson = lessonService.isLessonExistById(studentInfoRequest.getLessonId());
+        StudentInfo studentInfo = isStudentInfoExistById(studentInfoId); // delete de yazilan method
+        EducationTerm educationTerm =
+                educationTermService.findEducationTermById(studentInfoRequest.getEducationTermId());
+
+        Double noteAverage =
+                calculateAverageExam(studentInfoRequest.getMidtermExam(), studentInfoRequest.getFinalExam());
+        Note note = checkLetterGrade(noteAverage);
+        StudentInfo studentInfoForUpdate =
+                studentInfoMapper.mapStudentInfoUpdateToStudentInfo(studentInfoRequest,
+                        studentInfoId,
+                        lesson,
+                        educationTerm,
+                        note,
+                        noteAverage);
+        studentInfoForUpdate.setStudent(studentInfo.getStudent());
+        studentInfoForUpdate.setTeacher(studentInfo.getTeacher());
+        StudentInfo updatedStudentInfo = studentInfoRepository.save(studentInfoForUpdate);
         return ResponseMessage.<StudentInfoResponse>builder()
                 .message(SuccessMessages.STUDENT_INFO_UPDATE)
-                .object(studentInfoMapper.mapStudentInfoToStudentInfoResponse(updatedStudentInfo))
                 .httpStatus(HttpStatus.OK)
+                .object(studentInfoMapper.mapStudentInfoToStudentInfoResponse(updatedStudentInfo))
                 .build();
+    }
 
+    private void checkSameLesson(Long studentId,String lessonName){
+        boolean isLessonDuplicationExist =
+                studentInfoRepository.getAllByStudentId_Id(studentId) // Derived Query
+                        .stream()
+                        .anyMatch(e->e.getLesson().getLessonName().equalsIgnoreCase(lessonName));
+        if(isLessonDuplicationExist){
+            throw new ConflictException(String.format(ErrorMessages.LESSON_ALREADY_EXIST_WITH_LESSON_NAME,lessonName));
+        }
     }
 }

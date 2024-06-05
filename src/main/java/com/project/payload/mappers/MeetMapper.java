@@ -21,7 +21,7 @@ public class MeetMapper {
                 .build();
     }
 
-    public Meet mapMeetUpdatedRequestToMeet(MeetRequest meetRequest, Long meetId){
+    public Meet mapMeetUpdateRequestToMeet(MeetRequest meetRequest, Long meetId){
         return Meet.builder()
                 .id(meetId)
                 .startTime(meetRequest.getStartTime())
@@ -45,5 +45,4 @@ public class MeetMapper {
                 .students(meet.getStudentList())
                 .build();
     }
-
 }

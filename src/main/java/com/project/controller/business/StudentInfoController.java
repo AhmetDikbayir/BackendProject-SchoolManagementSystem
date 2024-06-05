@@ -2,6 +2,7 @@ package com.project.controller.business;
 
 import com.project.entity.concretes.business.StudentInfo;
 import com.project.payload.request.business.StudentInfoRequest;
+import com.project.payload.request.business.UpdateStudentInfoRequest;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.payload.response.business.StudentInfoResponse;
 import com.project.service.business.StudentInfoService;
@@ -31,29 +32,31 @@ public class StudentInfoController {
     }
 
     // Not : ( ODEV )  Delete() ************************************************************
-    @PreAuthorize("hasAnyAuthority('TEACHER')")
-    @DeleteMapping("/delete/{studentInfoId}") // http://localhost:8080/studentInfo/delete/1
-    public ResponseMessage deleteStudentInfoById(@PathVariable Long studentInfoId){
-        return studentInfoService.deleteStudentInfoById(studentInfoId);
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
+    @DeleteMapping("/delete/{studentInfoId}")// http://localhost:8080/studentInfo/delete/1
+    public ResponseMessage delete (@PathVariable Long studentInfoId){
+        return studentInfoService.deleteStudentInfo(studentInfoId);
     }
 
     // Not: ( ODEV ) getAllWithPage ********************************************************
-    @PreAuthorize("hasAnyAuthority('ADMIN, MANAGER,ASSISTANT_MANAGER')")
-    @GetMapping("/getAllWithPage")   // http://localhost:8080/studentInfo/getAllWithPage
-    public ResponseEntity<Page<StudentInfoResponse>> getAllWithPage(
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    @GetMapping("/getAllStudentInfoByPage") // http://localhost:8080/studentInfo/getAllStudentInfoByPage?page=0&size=10&sort=id&type=desc
+    public Page<StudentInfoResponse> getAllStudentInfoByPage(
             @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") int size
-    ){
-        return new ResponseEntity<>(studentInfoService.getAllWithPage(page,size), HttpStatus.OK);
+            @RequestParam(value = "size") int size,
+            @RequestParam(value = "sort") String sort,
+            @RequestParam(value = "type") String type
+    ) {
+        return  studentInfoService.getAllStudentInfoByPage(page,size,sort,type);
     }
 
     // Not: ( ODEV ) Update() *************************************************************
-    @PreAuthorize("hasAnyAuthority('TEACHER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','TEACHER')")
     @PutMapping("/update/{studentInfoId}") // http://localhost:8080/studentInfo/update/1
-    public ResponseMessage<StudentInfoResponse> updateStudentInfoById(
-            @PathVariable Long studentInfoId,
-            @RequestBody @Valid StudentInfoRequest studentInfoRequest){
-        return studentInfoService.updateStudentInfoById(studentInfoId, studentInfoRequest);
+    // student id bilgisine ihtiyac olmadigi icin, icinde studentId olmayan yeni bir DTO yazdik
+    public ResponseMessage<StudentInfoResponse>update(@RequestBody @Valid UpdateStudentInfoRequest studentInfoRequest,
+                                                      @PathVariable Long studentInfoId){
+        return studentInfoService.update(studentInfoRequest,studentInfoId);
     }
 
     // !!! -> Bir ogretmen kendi ogrencilerinin bilgilerini almak isterse :

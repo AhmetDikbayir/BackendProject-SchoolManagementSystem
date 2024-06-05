@@ -40,5 +40,5 @@ public class MeetRequest {
     private LocalTime stopTime;
 
     @NotNull(message = "Please select students")
-    private Set<Long> studentIds; // TODO : Set ?
+    private Long[] studentIds; // TODO : Set ?
 }
