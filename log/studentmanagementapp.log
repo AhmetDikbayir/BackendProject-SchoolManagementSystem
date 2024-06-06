@@ -1,333 +1,96 @@
-"2024-06-05 00:29:54,523 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 23560 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
-""2024-06-05 00:29:54,535 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
-""2024-06-05 00:29:56,235 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-""2024-06-05 00:29:56,356 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 107 ms. Found 8 JPA repository interfaces.
-""2024-06-05 00:29:57,463 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
-""2024-06-05 00:29:57,486 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
-""2024-06-05 00:29:57,487 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
-""2024-06-05 00:29:57,655 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
-""2024-06-05 00:29:57,655 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 3030 ms
-""2024-06-05 00:29:57,990 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
-""2024-06-05 00:29:58,085 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
-""2024-06-05 00:29:58,333 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-""2024-06-05 00:29:58,531 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
-""2024-06-05 00:29:58,859 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
-""2024-06-05 00:29:58,887 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
-""2024-06-05 00:30:00,119 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-""2024-06-05 00:30:00,128 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
-""2024-06-05 00:30:01,504 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-""2024-06-05 00:30:01,725 WARN  [main] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext:Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/project/security/config/WebSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-""2024-06-05 00:30:01,729 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
-""2024-06-05 00:30:01,734 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
-""2024-06-05 00:30:01,740 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
-""2024-06-05 00:30:01,752 INFO  [main] org.apache.catalina.core.StandardService:Stopping service [Tomcat]
-""2024-06-05 00:30:01,771 INFO  [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener:
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-""2024-06-05 00:30:01,802 ERROR [main] org.springframework.boot.SpringApplication:Application run failed
-"org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/project/security/config/WebSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:767)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:719)
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
-	at com.project.SchoolManagmentApplication.main(SchoolManagmentApplication.java:32)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/project/security/config/WebSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:658)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:638)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1609)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1573)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1462)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1349)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:759)
-	... 20 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
-	... 36 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1160)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer$MvcCorsFilter.getMvcCorsFilter(CorsConfigurer.java:111)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer$MvcCorsFilter.access$000(CorsConfigurer.java:94)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer.getCorsFilter(CorsConfigurer.java:89)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer.configure(CorsConfigurer.java:67)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer.configure(CorsConfigurer.java:41)
-	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.configure(AbstractConfiguredSecurityBuilder.java:349)
-	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.doBuild(AbstractConfiguredSecurityBuilder.java:303)
-	at org.springframework.security.config.annotation.AbstractSecurityBuilder.build(AbstractSecurityBuilder.java:38)
-	at com.project.security.config.WebSecurityConfig.filterChain(WebSecurityConfig.java:48)
-	at com.project.security.config.WebSecurityConfig$$EnhancerBySpringCGLIB$$5f4ea91e.CGLIB$filterChain$5(<generated>)
-	at com.project.security.config.WebSecurityConfig$$EnhancerBySpringCGLIB$$5f4ea91e$$FastClassBySpringCGLIB$$a1e26f11.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244)
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
-	at com.project.security.config.WebSecurityConfig$$EnhancerBySpringCGLIB$$5f4ea91e.filterChain(<generated>)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
-	... 37 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:673)
-	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1308)
-	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:378)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.initHandlerMappings(HandlerMappingIntrospector.java:226)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.afterPropertiesSet(HandlerMappingIntrospector.java:115)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
-	... 63 common frames omitted
-Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:669)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:635)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:332)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:420)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:76)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:299)
-	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:297)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:266)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:225)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:213)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:205)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
-	... 76 common frames omitted
-"2024-06-05 00:32:27,327 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 18064 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
-""2024-06-05 00:32:27,331 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
-""2024-06-05 00:32:28,447 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-""2024-06-05 00:32:28,615 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 152 ms. Found 8 JPA repository interfaces.
-""2024-06-05 00:32:29,848 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
-""2024-06-05 00:32:29,889 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
-""2024-06-05 00:32:29,891 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
-""2024-06-05 00:32:30,114 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
-""2024-06-05 00:32:30,115 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 2716 ms
-""2024-06-05 00:32:30,462 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
-""2024-06-05 00:32:30,550 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
-""2024-06-05 00:32:30,866 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-""2024-06-05 00:32:30,996 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
-""2024-06-05 00:32:31,218 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
-""2024-06-05 00:32:31,247 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
-""2024-06-05 00:32:32,393 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-""2024-06-05 00:32:32,400 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
-""2024-06-05 00:32:33,747 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-""2024-06-05 00:32:33,911 WARN  [main] org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext:Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/project/security/config/WebSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-""2024-06-05 00:32:33,915 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
-""2024-06-05 00:32:33,918 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
-""2024-06-05 00:32:33,923 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
-""2024-06-05 00:32:33,930 INFO  [main] org.apache.catalina.core.StandardService:Stopping service [Tomcat]
-""2024-06-05 00:32:33,950 INFO  [main] org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener:
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-""2024-06-05 00:32:33,989 ERROR [main] org.springframework.boot.SpringApplication:Application run failed
-"org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration': Unsatisfied dependency expressed through method 'setFilterChains' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/project/security/config/WebSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:767)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:719)
-	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
-	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
-	at com.project.SchoolManagmentApplication.main(SchoolManagmentApplication.java:32)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'filterChain' defined in class path resource [com/project/security/config/WebSecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:658)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:638)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1352)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1195)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:582)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1609)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1573)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1462)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1349)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1311)
-	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.resolveMethodArguments(AutowiredAnnotationBeanPostProcessor.java:759)
-	... 20 common frames omitted
-Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.web.SecurityFilterChain]: Factory method 'filterChain' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185)
-	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
-	... 36 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mvcHandlerMappingIntrospector' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:213)
-	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1160)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer$MvcCorsFilter.getMvcCorsFilter(CorsConfigurer.java:111)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer$MvcCorsFilter.access$000(CorsConfigurer.java:94)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer.getCorsFilter(CorsConfigurer.java:89)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer.configure(CorsConfigurer.java:67)
-	at org.springframework.security.config.annotation.web.configurers.CorsConfigurer.configure(CorsConfigurer.java:41)
-	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.configure(AbstractConfiguredSecurityBuilder.java:349)
-	at org.springframework.security.config.annotation.AbstractConfiguredSecurityBuilder.doBuild(AbstractConfiguredSecurityBuilder.java:303)
-	at org.springframework.security.config.annotation.AbstractSecurityBuilder.build(AbstractSecurityBuilder.java:38)
-	at com.project.security.config.WebSecurityConfig.filterChain(WebSecurityConfig.java:48)
-	at com.project.security.config.WebSecurityConfig$$EnhancerBySpringCGLIB$$3e7d0c92.CGLIB$filterChain$4(<generated>)
-	at com.project.security.config.WebSecurityConfig$$EnhancerBySpringCGLIB$$3e7d0c92$$FastClassBySpringCGLIB$$a234a4ae.invoke(<generated>)
-	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244)
-	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331)
-	at com.project.security.config.WebSecurityConfig$$EnhancerBySpringCGLIB$$3e7d0c92.filterChain(<generated>)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154)
-	... 37 common frames omitted
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'requestMappingHandlerMapping' defined in class path resource [org/springframework/boot/autoconfigure/web/servlet/WebMvcAutoConfiguration$EnableWebMvcConfiguration.class]: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1804)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:673)
-	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1308)
-	at org.springframework.beans.factory.BeanFactoryUtils.beansOfTypeIncludingAncestors(BeanFactoryUtils.java:378)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.initHandlerMappings(HandlerMappingIntrospector.java:226)
-	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.afterPropertiesSet(HandlerMappingIntrospector.java:115)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
-	... 63 common frames omitted
-Caused by: java.lang.IllegalStateException: Ambiguous mapping. Cannot map 'lessonProgramController' method 
-com.project.controller.business.LessonProgramController#getAllLessonProgramByTeacher(HttpServletRequest)
-to {GET [/lessonPrograms/getAllLessonProgramByTeacher]}: There is already 'lessonProgramController' bean method
-com.project.controller.business.LessonProgramController#getAllLessonProgramByStudent(HttpServletRequest) mapped.
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.validateMethodMapping(AbstractHandlerMethodMapping.java:669)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping$MappingRegistry.register(AbstractHandlerMethodMapping.java:635)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:332)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:420)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.registerHandlerMethod(RequestMappingHandlerMapping.java:76)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lambda$detectHandlerMethods$2(AbstractHandlerMethodMapping.java:299)
-	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:297)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.processCandidateBean(AbstractHandlerMethodMapping.java:266)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:225)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.afterPropertiesSet(AbstractHandlerMethodMapping.java:213)
-	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping.afterPropertiesSet(RequestMappingHandlerMapping.java:205)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1863)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800)
-	... 76 common frames omitted
-"2024-06-05 00:36:06,601 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 13672 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
-""2024-06-05 00:36:06,605 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
-""2024-06-05 00:36:07,733 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-""2024-06-05 00:36:07,887 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 138 ms. Found 8 JPA repository interfaces.
-""2024-06-05 00:36:08,907 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
-""2024-06-05 00:36:08,921 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
-""2024-06-05 00:36:08,923 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
-""2024-06-05 00:36:09,073 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
-""2024-06-05 00:36:09,074 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 2404 ms
-""2024-06-05 00:36:09,402 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
-""2024-06-05 00:36:09,551 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
-""2024-06-05 00:36:09,846 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-""2024-06-05 00:36:10,007 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
-""2024-06-05 00:36:10,232 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
-""2024-06-05 00:36:10,255 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
-""2024-06-05 00:36:11,453 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-""2024-06-05 00:36:11,461 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
-""2024-06-05 00:36:12,700 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-""2024-06-05 00:36:13,009 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@127320df, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c3884f5, org.springframework.security.web.context.SecurityContextPersistenceFilter@1bcf2c64, org.springframework.security.web.header.HeaderWriterFilter@774189d0, org.springframework.web.filter.CorsFilter@6778636f, org.springframework.security.web.authentication.logout.LogoutFilter@219a2203, com.project.security.jwt.AuthTokenFilter@1cfb7450, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4fe3f9ef, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c86b0ea, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2dbf8cfc, org.springframework.security.web.session.SessionManagementFilter@32f45e15, org.springframework.security.web.access.ExceptionTranslationFilter@7c07023, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@f6e3b67]
-""2024-06-05 00:36:13,395 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8080 (http) with context path ''
-""2024-06-05 00:36:13,417 INFO  [main] com.project.SchoolManagmentApplication:Started SchoolManagmentApplication in 7.438 seconds (JVM running for 7.97)
-""2024-06-05 00:36:33,816 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
-""2024-06-05 00:36:33,820 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
-""2024-06-05 00:36:33,835 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
+"2024-06-06 20:39:21,267 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 18556 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
+""2024-06-06 20:39:21,277 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
+""2024-06-06 20:39:22,849 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-06-06 20:39:22,965 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 101 ms. Found 8 JPA repository interfaces.
+""2024-06-06 20:39:23,935 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
+""2024-06-06 20:39:23,959 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
+""2024-06-06 20:39:23,959 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
+""2024-06-06 20:39:24,126 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
+""2024-06-06 20:39:24,126 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 2750 ms
+""2024-06-06 20:39:24,469 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-06-06 20:39:24,586 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
+""2024-06-06 20:39:24,919 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+""2024-06-06 20:39:25,050 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
+""2024-06-06 20:39:25,356 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
+""2024-06-06 20:39:25,394 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+""2024-06-06 20:39:26,669 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2024-06-06 20:39:26,679 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 20:39:28,136 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-06-06 20:39:28,492 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5ead245, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e49a77e, org.springframework.security.web.context.SecurityContextPersistenceFilter@1db9c2cf, org.springframework.security.web.header.HeaderWriterFilter@48da5106, org.springframework.web.filter.CorsFilter@57466fb7, org.springframework.security.web.authentication.logout.LogoutFilter@4d1b4fa1, com.project.security.jwt.AuthTokenFilter@23e0c200, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@421d7900, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@45964b9e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7891742e, org.springframework.security.web.session.SessionManagementFilter@7c0a6f62, org.springframework.security.web.access.ExceptionTranslationFilter@9fd3b61, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2b9615cb]
+""2024-06-06 20:39:28,865 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8080 (http) with context path ''
+""2024-06-06 20:39:28,884 INFO  [main] com.project.SchoolManagmentApplication:Started SchoolManagmentApplication in 8.208 seconds (JVM running for 8.709)
+""2024-06-06 20:41:30,549 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 20:41:30,552 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+""2024-06-06 20:41:30,556 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
+""2024-06-06 22:19:44,647 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 2556 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
+""2024-06-06 22:19:44,650 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
+""2024-06-06 22:19:46,349 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-06-06 22:19:46,442 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 86 ms. Found 8 JPA repository interfaces.
+""2024-06-06 22:19:47,356 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
+""2024-06-06 22:19:47,379 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
+""2024-06-06 22:19:47,380 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
+""2024-06-06 22:19:47,552 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
+""2024-06-06 22:19:47,554 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 2823 ms
+""2024-06-06 22:19:47,853 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-06-06 22:19:47,968 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
+""2024-06-06 22:19:48,241 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+""2024-06-06 22:19:48,366 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
+""2024-06-06 22:19:48,635 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
+""2024-06-06 22:19:48,656 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+""2024-06-06 22:19:49,752 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2024-06-06 22:19:49,760 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 22:19:51,248 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-06-06 22:19:52,219 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@457d3f54, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@144792d5, org.springframework.security.web.context.SecurityContextPersistenceFilter@2dec57c5, org.springframework.security.web.header.HeaderWriterFilter@63ccb1b2, org.springframework.web.filter.CorsFilter@1da61a29, org.springframework.security.web.authentication.logout.LogoutFilter@3183a37c, com.project.security.jwt.AuthTokenFilter@2e38d44e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31e9d94f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69a3944, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@47cf922d, org.springframework.security.web.session.SessionManagementFilter@36f80ceb, org.springframework.security.web.access.ExceptionTranslationFilter@740fccd2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1718de70]
+""2024-06-06 22:19:52,656 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8080 (http) with context path ''
+""2024-06-06 22:19:52,670 INFO  [main] com.project.SchoolManagmentApplication:Started SchoolManagmentApplication in 8.516 seconds (JVM running for 8.951)
+""2024-06-06 22:20:42,342 INFO  [http-nio-8080-exec-1] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring DispatcherServlet 'dispatcherServlet'
+""2024-06-06 22:20:44,135 INFO  [http-nio-8080-exec-9] org.springdoc.api.AbstractOpenApiResource:Init duration for springdoc-openapi is: 1476 ms
+""2024-06-06 22:23:30,245 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 22:23:30,247 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+""2024-06-06 22:23:30,250 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
+""2024-06-06 22:25:37,815 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 1760 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
+""2024-06-06 22:25:37,817 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
+""2024-06-06 22:25:38,754 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-06-06 22:25:38,854 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 92 ms. Found 8 JPA repository interfaces.
+""2024-06-06 22:25:39,757 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
+""2024-06-06 22:25:39,782 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
+""2024-06-06 22:25:39,783 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
+""2024-06-06 22:25:39,956 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
+""2024-06-06 22:25:39,957 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 2095 ms
+""2024-06-06 22:25:40,241 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-06-06 22:25:40,341 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
+""2024-06-06 22:25:40,591 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+""2024-06-06 22:25:40,713 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
+""2024-06-06 22:25:40,916 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
+""2024-06-06 22:25:40,938 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+""2024-06-06 22:25:42,063 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2024-06-06 22:25:42,071 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 22:25:43,746 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-06-06 22:25:44,692 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@613ba54e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@27422187, org.springframework.security.web.context.SecurityContextPersistenceFilter@61d527ac, org.springframework.security.web.header.HeaderWriterFilter@2dd4a7a9, org.springframework.web.filter.CorsFilter@7205a8b7, org.springframework.security.web.authentication.logout.LogoutFilter@6b6939e1, com.project.security.jwt.AuthTokenFilter@20e3b165, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@380e3122, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@576323ff, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1ee126de, org.springframework.security.web.session.SessionManagementFilter@6d38a81d, org.springframework.security.web.access.ExceptionTranslationFilter@311453ab, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4dc16fc9]
+""2024-06-06 22:25:45,105 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8080 (http) with context path ''
+""2024-06-06 22:25:45,123 INFO  [main] com.project.SchoolManagmentApplication:Started SchoolManagmentApplication in 7.779 seconds (JVM running for 8.183)
+""2024-06-06 22:26:32,250 INFO  [SpringApplicationShutdownHook] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Closing JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 22:26:32,252 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown initiated...
+""2024-06-06 22:26:32,255 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Shutdown completed.
+""2024-06-06 23:12:10,954 INFO  [main] com.project.SchoolManagmentApplication:Starting SchoolManagmentApplication using Java 17.0.9 on Dell with PID 23564 (C:\Users\adikb\IdeaProjects\school-management\target\classes started by adikb in C:\Users\adikb\IdeaProjects\school-management)
+""2024-06-06 23:12:10,956 INFO  [main] com.project.SchoolManagmentApplication:No active profile set, falling back to 1 default profile: "default"
+""2024-06-06 23:12:11,950 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+""2024-06-06 23:12:12,055 INFO  [main] org.springframework.data.repository.config.RepositoryConfigurationDelegate:Finished Spring Data repository scanning in 94 ms. Found 8 JPA repository interfaces.
+""2024-06-06 23:12:12,953 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat initialized with port(s): 8080 (http)
+""2024-06-06 23:12:12,971 INFO  [main] org.apache.catalina.core.StandardService:Starting service [Tomcat]
+""2024-06-06 23:12:12,972 INFO  [main] org.apache.catalina.core.StandardEngine:Starting Servlet engine: [Apache Tomcat/9.0.68]
+""2024-06-06 23:12:13,137 INFO  [main] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:Initializing Spring embedded WebApplicationContext
+""2024-06-06 23:12:13,138 INFO  [main] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:Root WebApplicationContext: initialization completed in 2135 ms
+""2024-06-06 23:12:13,443 INFO  [main] org.hibernate.jpa.internal.util.LogHelper:HHH000204: Processing PersistenceUnitInfo [name: default]
+""2024-06-06 23:12:13,529 INFO  [main] org.hibernate.Version:HHH000412: Hibernate ORM core version 5.6.12.Final
+""2024-06-06 23:12:13,772 INFO  [main] org.hibernate.annotations.common.Version:HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+""2024-06-06 23:12:13,884 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Starting...
+""2024-06-06 23:12:14,101 INFO  [main] com.zaxxer.hikari.HikariDataSource:HikariPool-1 - Start completed.
+""2024-06-06 23:12:14,121 INFO  [main] org.hibernate.dialect.Dialect:HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL81Dialect
+""2024-06-06 23:12:15,156 INFO  [main] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+""2024-06-06 23:12:15,162 INFO  [main] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:Initialized JPA EntityManagerFactory for persistence unit 'default'
+""2024-06-06 23:12:16,595 WARN  [main] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+""2024-06-06 23:12:17,443 INFO  [main] org.springframework.security.web.DefaultSecurityFilterChain:Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@639bf405, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@eda7dd3, org.springframework.security.web.context.SecurityContextPersistenceFilter@7b6b99c5, org.springframework.security.web.header.HeaderWriterFilter@41e76252, org.springframework.web.filter.CorsFilter@9d7a853, org.springframework.security.web.authentication.logout.LogoutFilter@468eff41, com.project.security.jwt.AuthTokenFilter@4a094f90, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@72d7afff, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c41f6a0, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@71c69628, org.springframework.security.web.session.SessionManagementFilter@6ec77cab, org.springframework.security.web.access.ExceptionTranslationFilter@4987142d, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6b60d99c]
+""2024-06-06 23:12:17,942 INFO  [main] org.springframework.boot.web.embedded.tomcat.TomcatWebServer:Tomcat started on port(s): 8080 (http) with context path ''
+""2024-06-06 23:12:17,964 INFO  [main] com.project.SchoolManagmentApplication:Started SchoolManagmentApplication in 7.5 seconds (JVM running for 7.89)
 "

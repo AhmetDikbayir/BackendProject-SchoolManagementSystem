@@ -5,11 +5,13 @@ import com.project.entity.concretes.user.User;
 import com.project.entity.enums.RoleType;
 import com.project.payload.mappers.UserMapper;
 import com.project.payload.messages.SuccessMessages;
+import com.project.payload.request.business.ChooseLessonProgramWithId;
 import com.project.payload.request.user.StudentRequest;
 import com.project.payload.request.user.StudentRequestWithoutPassword;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.payload.response.user.StudentResponse;
 import com.project.repository.user.UserRepository;
+import com.project.service.business.LessonProgramService;
 import com.project.service.helper.MethodHelper;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,7 @@ public class StudentService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
+    private final LessonProgramService lessonProgramService;
 
     public ResponseMessage<StudentResponse> saveStudent(StudentRequest studentRequest) {
 
@@ -132,5 +135,25 @@ public class StudentService {
         String message = SuccessMessages.USER_UPDATE;
 
         return ResponseEntity.ok(message);
+    }
+
+    public ResponseMessage<StudentResponse> addLessonProgramToStudent(String userName, ChooseLessonProgramWithId chooseLessonProgramWithId) {
+
+        User student = methodHelper.isUserExistByUsername(userName);
+        Set<LessonProgram> lessonProgramSet = lessonProgramService.getLessonProgramById(chooseLessonProgramWithId.getLessonProgramId());
+
+        Set<LessonProgram> studentCurrentLessonProgram = student.getLessonsProgramList();
+        studentCurrentLessonProgram.addAll(lessonProgramSet);
+
+        student.setLessonsProgramList(studentCurrentLessonProgram);
+
+        User savedStudent = userRepository.save(student);
+
+        return ResponseMessage.<StudentResponse>builder()
+                .message(SuccessMessages.LESSON_PROGRAM_ADD_TO_STUDENT)
+                .object(userMapper.mapUserToStudentResponse(savedStudent))
+                .httpStatus(HttpStatus.OK)
+                .build();
+
     }
 }

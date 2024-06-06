@@ -14,10 +14,14 @@ import com.project.payload.response.business.MeetResponse;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.repository.business.MeetRepository;
 import com.project.service.helper.MethodHelper;
+import com.project.service.helper.PageableHelper;
 import com.project.service.user.UserService;
 import com.project.service.validator.DateTimeValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +39,7 @@ public class MeetService {
     private final MethodHelper methodHelper;
     private final DateTimeValidator dateTimeValidator;
     private final UserService userService;
+    private final PageableHelper pageableHelper;
 
 
     public List<MeetResponse> getAll() {
@@ -111,6 +116,7 @@ public class MeetService {
 
         // !!! Student veya Teacher a aıt olan mevcut Meet ler getırılıyor
         if(Boolean.TRUE.equals(methodHelper.isUserExist(userId).getIsAdvisor())) {
+            //Burada Advisory teacher ın içindeki id fieldına underscore ile ulaşıp derived query yazmış oluyoruz.
             meets = meetRepository.getByAdvisoryTeacher_IdEquals(userId); // Derived
         } else meets = meetRepository.findByStudentList_IdEquals(userId); // Derived
 
@@ -139,7 +145,7 @@ public class MeetService {
         isTeacherControl(meet, httpServletRequest);
         dateTimeValidator.checkTimeWithException(updateMeetRequest.getStartTime(),
                 updateMeetRequest.getStopTime());
-        if(! ( // update de unique olmasi gereken bilgiler eskisi ile ayni ie conflict kontrolune gerek yok :
+        if(! ( // update de unique olmasi gereken bilgiler eskisi ile ayni ise conflict kontrolune gerek yok :
                 meet.getDate().equals(updateMeetRequest.getDate()) &&
                         meet.getStartTime().equals(updateMeetRequest.getStartTime()) &&
                         meet.getStopTime().equals(updateMeetRequest.getStopTime())
@@ -186,5 +192,63 @@ public class MeetService {
         {
             throw new BadRequestException(ErrorMessages.NOT_PERMITTED_METHOD_MESSAGE);
         }
+    }
+
+    public ResponseMessage delete(Long meetId, HttpServletRequest httpServletRequest) {
+
+        Meet meet = isMeetExistById(meetId);
+        isTeacherControl(meet, httpServletRequest);
+        meetRepository.deleteById(meetId);
+        return ResponseMessage.builder()
+                .message(SuccessMessages.MEET_DELETE)
+                .httpStatus(HttpStatus.OK)
+                .build();
+    }
+
+    public ResponseEntity<List<MeetResponse>> getAllByTeacher(HttpServletRequest httpServletRequest) {
+
+        String userName = (String) httpServletRequest.getAttribute("username");
+        User advisorTeacher = methodHelper.isUserExistByUsername(userName);
+        methodHelper.checkAdvisor(advisorTeacher);
+
+        List<MeetResponse> meetResponseList =meetRepository.getByAdvisoryTeacher_IdEquals(advisorTeacher.getId())
+                .stream()
+                .map(meetMapper::mapMeetToMeetResponse)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(meetResponseList);
+
+    }
+
+    public ResponseEntity<List<MeetResponse>> getAllByStudent(HttpServletRequest httpServletRequest) {
+
+        String userName = (String) httpServletRequest.getAttribute("username");
+        User student = methodHelper.isUserExistByUsername(userName);
+
+        List<MeetResponse> meetResponseList =
+                meetRepository.findByStudentList_IdEquals(student.getId())
+                .stream()
+                .map(meetMapper::mapMeetToMeetResponse)
+                .collect(Collectors.toList());
+        
+        return ResponseEntity.ok(meetResponseList);
+    }
+
+    public Page<MeetResponse> getAllMeetByPage(int page, int size) {
+
+        Pageable pageable = pageableHelper.getPageableWithProperties(page,size);
+        return meetRepository.findAll(pageable).map(meetMapper::mapMeetToMeetResponse);
+    }
+
+    public ResponseEntity<Page<MeetResponse>> getAllMeetByTeacher(HttpServletRequest httpServletRequest, int page, int size) {
+
+        String userName = (String) httpServletRequest.getAttribute("username");
+        User advisoryTeacher = methodHelper.isUserExistByUsername(userName);
+        methodHelper.checkAdvisor(advisoryTeacher);
+
+        Pageable pageable =  pageableHelper.getPageableWithProperties(page, size);
+
+        return ResponseEntity.ok(meetRepository.findByAdvisoryTeacher_IdEquals(advisoryTeacher.getId(), pageable)
+                .map(meetMapper::mapMeetToMeetResponse));
+
     }
 }

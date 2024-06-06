@@ -1,10 +1,12 @@
 package com.project.controller.user;
 
+import com.project.payload.request.business.ChooseLessonTeacherRequest;
 import com.project.payload.request.user.TeacherRequest;
 import com.project.payload.response.business.ResponseMessage;
 import com.project.payload.response.user.StudentResponse;
 import com.project.payload.response.user.TeacherResponse;
 import com.project.payload.response.user.UserResponse;
+import com.project.service.business.LessonProgramService;
 import com.project.service.user.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import java.util.List;
 public class TeacherController {
 
     private final TeacherService teacherService;
+    private final LessonProgramService lessonProgramService;
 
     @PostMapping("/save") // http://localhost:8080/teacher/save + JSON + POST
     @PreAuthorize("hasAnyAuthority('ADMIN')")
@@ -67,7 +70,13 @@ public class TeacherController {
         return teacherService.getAllAdvisorTeacher();
     }
 
-    // TODO: LESSOn PROGRAM ekleme
+    @PreAuthorize("hasAnyAuthority('ADMIN','MANAGER','ASSISTANT_MANAGER')")
+    @GetMapping("/addLessonProgram")
+    public ResponseMessage<TeacherResponse> chooseLesson(@RequestBody @Valid ChooseLessonTeacherRequest chooseLessonTeacherRequest){
+        return teacherService.addLessonProgram(chooseLessonTeacherRequest);
+    }
+
+
 
 
 }
