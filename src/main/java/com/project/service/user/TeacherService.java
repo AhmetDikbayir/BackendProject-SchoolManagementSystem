@@ -16,6 +16,7 @@ import com.project.payload.response.user.UserResponse;
 import com.project.repository.user.UserRepository;
 import com.project.service.business.LessonProgramService;
 import com.project.service.helper.MethodHelper;
+import com.project.service.validator.DateTimeValidator;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,7 @@ public class TeacherService {
     private final PasswordEncoder passwordEncoder;
     private final MethodHelper methodHelper;
     private final LessonProgramService lessonProgramService;
+    private final DateTimeValidator dateTimeValidator;
 
     public ResponseMessage<TeacherResponse> saveTeacher(TeacherRequest teacherRequest) {
 
@@ -170,7 +172,9 @@ public class TeacherService {
         Set<LessonProgram> lessonPrograms =
                 lessonProgramService.getLessonProgramById(chooseLessonTeacherRequest.getLessonProgramId());
         Set<LessonProgram> teachersLessonProgram = teacher.getLessonsProgramList();
-        //TODO : conflict kontrolü
+        // conflict kontrolu
+        dateTimeValidator.checkLessonPrograms(teachersLessonProgram, lessonPrograms);
+
         teachersLessonProgram.addAll(lessonPrograms);
         teacher.setLessonsProgramList(teachersLessonProgram);
         User savedTeacher = userRepository.save(teacher);

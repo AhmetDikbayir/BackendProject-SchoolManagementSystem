@@ -13,6 +13,7 @@ import com.project.payload.response.user.StudentResponse;
 import com.project.repository.user.UserRepository;
 import com.project.service.business.LessonProgramService;
 import com.project.service.helper.MethodHelper;
+import com.project.service.validator.DateTimeValidator;
 import com.project.service.validator.UniquePropertyValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class StudentService {
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
     private final LessonProgramService lessonProgramService;
+    private final DateTimeValidator dateTimeValidator;
 
     public ResponseMessage<StudentResponse> saveStudent(StudentRequest studentRequest) {
 
@@ -143,6 +145,9 @@ public class StudentService {
         Set<LessonProgram> lessonProgramSet = lessonProgramService.getLessonProgramById(chooseLessonProgramWithId.getLessonProgramId());
 
         Set<LessonProgram> studentCurrentLessonProgram = student.getLessonsProgramList();
+        // !!! talep edilen ile mevcutta bir cakisma var mi kontrolu
+        dateTimeValidator.checkLessonPrograms(studentCurrentLessonProgram, lessonProgramSet);
+
         studentCurrentLessonProgram.addAll(lessonProgramSet);
 
         student.setLessonsProgramList(studentCurrentLessonProgram);
